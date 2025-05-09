@@ -45,6 +45,18 @@ target_sources(
 
 target_link_libraries(mac-avcapture PRIVATE OBS::libobs)
 
+set_source_files_properties(
+  plugin-main.m
+  plugin-main.h
+  plugin-properties.m
+  plugin-properties.h
+  OBSAVCapture.m
+  OBSAVCapture.h
+  OBSAVCapturePresetInfo.m
+  OBSAVCapturePresetInfo.h
+  PROPERTIES COMPILE_FLAGS "-fobjc-arc"
+)
+
 set_target_properties_obs(
   mac-avcapture
   PROPERTIES FOLDER plugins

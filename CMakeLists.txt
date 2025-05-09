@@ -29,6 +29,6 @@ add_subdirectory(plugins)
 
 add_subdirectory(test/test-input)
 
-add_subdirectory(UI)
+#add_subdirectory(UI)
 
 message_configuration()
