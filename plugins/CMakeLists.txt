@@ -26,7 +26,7 @@ macro(check_obs_websocket)
   if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/obs-websocket/CMakeLists.txt")
     message(FATAL_ERROR "Required submodule 'obs-websocket' not available.")
   else()
-    # add_subdirectory(obs-websocket)
+    #add_subdirectory(obs-websocket)
   endif()
 endmacro()
 

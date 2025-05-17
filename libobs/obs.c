@@ -668,6 +668,7 @@ struct obs_core_video_mix *obs_create_video_mix(struct obs_video_info *ovi)
 static int obs_init_video(struct obs_video_info *ovi)
 {
 	struct obs_core_video *video = &obs->video;
+	printf("⚠️  fps_num = %u, fps_den = %u\n", ovi->fps_num, ovi->fps_den);
 	video->video_frame_interval_ns = util_mul_div64(1000000000ULL, ovi->fps_den, ovi->fps_num);
 	video->video_half_frame_interval_ns = util_mul_div64(500000000ULL, ovi->fps_den, ovi->fps_num);
 

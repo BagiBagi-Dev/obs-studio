@@ -47,15 +47,29 @@ void add_default_module_paths(void)
 char *find_libobs_data_file(const char *file)
 {
     NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:@"com.obsproject.libobs"];
-    NSString *libobsDataPath =
-        [[[frameworkBundle bundleURL] path] stringByAppendingFormat:@"/%@/%s", @"Resources", file];
-    size_t path_length = strlen(libobsDataPath.UTF8String);
 
-    char *path = bmalloc(path_length + 1);
-    snprintf(path, (path_length + 1), "%s", libobsDataPath.UTF8String);
+    NSLog(@"📦 libobs.framework bundle: %@", frameworkBundle);
 
+    NSString *libobsDataPath = nil;
+
+    if (frameworkBundle) {
+        libobsDataPath = [[[frameworkBundle bundleURL] path] stringByAppendingFormat:@"/Resources/%s", file];
+    } else {
+        // Fallback: assume relative path (e.g., for dev use)
+        libobsDataPath = [NSString stringWithFormat:@"libs/Resources/%s", file];
+    }
+
+    const char *path_cstr = libobsDataPath.UTF8String;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:libobsDataPath]) {
+        NSLog(@"❌ default.effect not found at path: %s", path_cstr);
+        return NULL;
+    }
+
+    char *path = bmalloc(strlen(path_cstr) + 1);
+    strcpy(path, path_cstr);
     return path;
 }
+
 
 // MARK: - macOS Hardware Info Helpers
 
